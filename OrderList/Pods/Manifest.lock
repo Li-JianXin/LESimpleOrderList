@@ -1,0 +1,15 @@
+PODS:
+  - Masonry (0.6.3)
+  - YYKit (0.9.1):
+    - YYKit/no-arc (= 0.9.1)
+  - YYKit/no-arc (0.9.1)
+
+DEPENDENCIES:
+  - Masonry
+  - YYKit
+
+SPEC CHECKSUMS:
+  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
+  YYKit: d9aaefc9ecc81b1626c1dd211770c480bff221ba
+
+COCOAPODS: 0.39.0
