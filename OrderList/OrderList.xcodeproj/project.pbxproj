@@ -10,6 +10,10 @@
 		5E59B2751D4307650029F195 /* MLGFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59B2741D4307650029F195 /* MLGFooterView.m */; };
 		5E59B2781D4307750029F195 /* MLGHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59B2771D4307750029F195 /* MLGHeaderView.m */; };
 		5E59B2861D436D600029F195 /* MLGLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59B2851D436D600029F195 /* MLGLayout.m */; };
+		5E59B28B1D4604470029F195 /* H5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59B2891D4604470029F195 /* H5ViewController.m */; };
+		5E59B28C1D4604470029F195 /* H5ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E59B28A1D4604470029F195 /* H5ViewController.xib */; };
+		5E59B2901D4606F60029F195 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59B28E1D4606F60029F195 /* OrderDetailViewController.m */; };
+		5E59B2911D4606F60029F195 /* OrderDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E59B28F1D4606F60029F195 /* OrderDetailViewController.xib */; };
 		5EB7AB3C1D41F42A00377A9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB7AB3B1D41F42A00377A9F /* main.m */; };
 		5EB7AB3F1D41F42A00377A9F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB7AB3E1D41F42A00377A9F /* AppDelegate.m */; };
 		5EB7AB421D41F42A00377A9F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB7AB411D41F42A00377A9F /* ViewController.m */; };
@@ -50,6 +54,12 @@
 		5E59B2801D435FC50029F195 /* MLGOrderHeaderDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLGOrderHeaderDef.h; sourceTree = "<group>"; };
 		5E59B2841D436D600029F195 /* MLGLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGLayout.h; sourceTree = "<group>"; };
 		5E59B2851D436D600029F195 /* MLGLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGLayout.m; sourceTree = "<group>"; };
+		5E59B2881D4604470029F195 /* H5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H5ViewController.h; sourceTree = "<group>"; };
+		5E59B2891D4604470029F195 /* H5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H5ViewController.m; sourceTree = "<group>"; };
+		5E59B28A1D4604470029F195 /* H5ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = H5ViewController.xib; sourceTree = "<group>"; };
+		5E59B28D1D4606F60029F195 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		5E59B28E1D4606F60029F195 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		5E59B28F1D4606F60029F195 /* OrderDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailViewController.xib; sourceTree = "<group>"; };
 		5EB7AB371D41F42A00377A9F /* OrderList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB7AB3B1D41F42A00377A9F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5EB7AB3D1D41F42A00377A9F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -126,6 +136,19 @@
 			name = "Header Def";
 			sourceTree = "<group>";
 		};
+		5E59B2871D4604200029F195 /* JumpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5E59B2881D4604470029F195 /* H5ViewController.h */,
+				5E59B2891D4604470029F195 /* H5ViewController.m */,
+				5E59B28A1D4604470029F195 /* H5ViewController.xib */,
+				5E59B28D1D4606F60029F195 /* OrderDetailViewController.h */,
+				5E59B28E1D4606F60029F195 /* OrderDetailViewController.m */,
+				5E59B28F1D4606F60029F195 /* OrderDetailViewController.xib */,
+			);
+			name = JumpViewController;
+			sourceTree = "<group>";
+		};
 		5EB7AB2E1D41F42A00377A9F = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +174,7 @@
 		5EB7AB391D41F42A00377A9F /* OrderList */ = {
 			isa = PBXGroup;
 			children = (
+				5E59B2871D4604200029F195 /* JumpViewController */,
 				5E59B27D1D435F560029F195 /* Header Def */,
 				5EB7AB701D41F57800377A9F /* MLGOrder */,
 				5EB7AB6D1D41F43600377A9F /* API Dump */,
@@ -326,6 +350,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EB7AB4A1D41F42A00377A9F /* LaunchScreen.storyboard in Resources */,
+				5E59B28C1D4604470029F195 /* H5ViewController.xib in Resources */,
+				5E59B2911D4606F60029F195 /* OrderDetailViewController.xib in Resources */,
 				5EB7AB471D41F42A00377A9F /* Assets.xcassets in Resources */,
 				5EB7AB6F1D41F4AD00377A9F /* OrderList.json in Resources */,
 				5EB7AB451D41F42A00377A9F /* Main.storyboard in Resources */,
@@ -402,10 +428,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EB7AB761D41F62700377A9F /* MLGOrderListModel.m in Sources */,
+				5E59B28B1D4604470029F195 /* H5ViewController.m in Sources */,
 				5E59B2861D436D600029F195 /* MLGLayout.m in Sources */,
 				5EB7AB421D41F42A00377A9F /* ViewController.m in Sources */,
 				5EB7AB731D41F5CB00377A9F /* MLGOrderListCell.m in Sources */,
 				5EB7AB3F1D41F42A00377A9F /* AppDelegate.m in Sources */,
+				5E59B2901D4606F60029F195 /* OrderDetailViewController.m in Sources */,
 				5E59B2751D4307650029F195 /* MLGFooterView.m in Sources */,
 				5EB7AB3C1D41F42A00377A9F /* main.m in Sources */,
 				5E59B2781D4307750029F195 /* MLGHeaderView.m in Sources */,

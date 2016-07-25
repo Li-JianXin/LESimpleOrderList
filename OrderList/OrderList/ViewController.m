@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "MLGOrderHeaderDef.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,MLGHeaderDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *datas;
@@ -43,7 +43,6 @@
     }
     return _tableView;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,6 +110,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MLGHeaderView *header = [[MLGHeaderView alloc] init];
+    header.delegate = self;
     [header setLayout:((MLGLayout *)self.layouts[section])];
     return header;
 }
@@ -124,5 +124,19 @@
     return footer;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    OrderDetailViewController *orderDetailVc = [[OrderDetailViewController alloc] initWithOrderID:((MLGLayout *)self.layouts[indexPath.section]).orderModel.orderId];
+   // [orderDetailVc setLayout:((MLGLayout *)self.layouts[indexPath.section])];
+    [self.navigationController pushViewController:orderDetailVc animated:YES];
+}
+
+#pragma mark - <MLGHeaderDelegate>
+- (void)headerDidClick:(MLGLayout *)layout {
+    
+}
+- (void)headerDidClickLogistics:(MLGLayout *)layout {
+    H5ViewController *h5Vc = [[H5ViewController alloc] initWithHtmlUrl:layout.orderModel.logisticsUrl];
+    [self.navigationController pushViewController:h5Vc animated:YES];
+}
 
 @end

@@ -75,7 +75,7 @@
     [self addSubview:self.remindLabel];
     [self.remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.topSpace.mas_bottom);
-        make.left.right.mas_offset(5);
+        make.left.mas_offset(5);
         make.right.mas_offset(0);
         make.height.mas_equalTo(HEIGHT_REMIND);
     }];
@@ -137,6 +137,9 @@
     }];
     
     self.logisticsView = [UIView new];
+    self.logisticsView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *logisticsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logisticsTap:)];
+    [self.logisticsView addGestureRecognizer:logisticsTap];
     [self addSubview:self.logisticsView];
     [self.logisticsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_offset(0);
@@ -218,6 +221,13 @@
         }];
     }
         
+}
+
+#pragma mark - 手势点击
+- (void)logisticsTap:(UITapGestureRecognizer *)recognizer {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(headerDidClickLogistics:)]) {
+        [self.delegate headerDidClickLogistics:self.layout];
+    }
 }
 
 @end
