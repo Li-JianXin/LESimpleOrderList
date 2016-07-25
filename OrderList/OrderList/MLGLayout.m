@@ -36,22 +36,22 @@
     self.orderState = self.orderModel.state;
     
     if (self.orderModel.orderTips && self.orderModel.orderTips.length != 0) {
-        self.height_remind = 0.0f;
-        self.hiddenRemind = YES;
-    } else {
         self.height_remind = HEIGHT_REMIND;
         self.hiddenRemind = NO;
+    } else {
+        self.height_remind = 0.0f;
+        self.hiddenRemind = YES;
     }
     
     self.height_status = HEIGHT_STATUS;
     
     if (self.orderModel.logisticsMsg && self.orderModel.logisticsMsg.length != 0 && (self.orderModel.state == 23 || self.orderModel.state == 26 || self.orderModel.state ==  30 || self.orderModel.state == 20 || self.orderModel.state == 21 || self.orderModel.state == 22)) {
         self.height_logistics = HEIGHT_LOGISTICS;
-        self.hiddenBlogistics = NO;
+        self.hiddenLogistics = NO;
     }
     else {
         self.height_logistics = 0.0f;
-        self.hiddenBlogistics = YES;
+        self.hiddenLogistics = YES;
     }
     
     self.headerHeight = self.height_remind + self.height_status + self.height_logistics;

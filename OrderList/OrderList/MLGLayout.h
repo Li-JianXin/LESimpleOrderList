@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger,MUOrderState) {
 /** 是否隐藏remindView */
 @property (nonatomic, assign, getter=isHiddenRemind) BOOL hiddenRemind;
 /** 是否隐藏logisticsView */
-@property (nonatomic, assign, getter=isHiddenBlogistics) BOOL hiddenBlogistics;
+@property (nonatomic, assign, getter=isHiddenLogistics) BOOL hiddenLogistics;
 /** 是否隐藏BottomView */
 @property (nonatomic, assign, getter=isHiddenBottom) BOOL hiddenBottom;
 

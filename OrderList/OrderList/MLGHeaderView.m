@@ -142,6 +142,19 @@
     self.statusLabel.text = self.orderModel.stateName;
     self.logisticsAboutLabel.text = self.orderModel.logisticsMsg;
     self.logisticsDateLabel.text  = self.orderModel.logisticsTime;
+    
+    self.remindLabel.hidden = layout.isHiddenRemind;
+    self.logisticsView.hidden = layout.hiddenLogistics;
+    
+    if (self.remindLabel.hidden) {
+        [self.remindLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    } else {
+        [self.remindLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(HEIGHT_REMIND);
+        }];
+    }
 }
 
 @end
