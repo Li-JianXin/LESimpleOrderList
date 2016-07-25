@@ -39,6 +39,31 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+        NSMutableArray *idleImages = [NSMutableArray array];
+        for (NSUInteger i = 1; i<=60; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_anim__000%zd", i]];
+            [idleImages addObject:image];
+        }
+        [header setImages:idleImages forState:MJRefreshStateIdle];
+        NSMutableArray *refreshingImages = [NSMutableArray array];
+        for (NSUInteger i = 1; i<=3; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading_0%zd", i]];
+            [refreshingImages addObject:image];
+        }
+        [header setImages:refreshingImages forState:MJRefreshStatePulling];
+        [header setImages:refreshingImages forState:MJRefreshStateRefreshing];
+        
+        _tableView.mj_header = header;
+        
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            __weak UITableView *tableView = self.tableView;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [tableView reloadData];
+                [tableView.mj_footer endRefreshing];
+            });
+        }];
+        
         [self.view addSubview:_tableView];
     }
     return _tableView;
@@ -160,5 +185,16 @@
 - (void)footerDidClickSendRedEnvelope:(MLGLayout *)layout {
     NSLog(@"发红包 %@",layout.orderModel.orderId);
 }
+
+#pragma mark - 下拉
+- (void)loadNewData {
+    __weak UITableView *tableView = self.tableView;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [tableView reloadData];
+        [tableView.mj_header endRefreshing];
+    });
+
+}
+
 
 @end
