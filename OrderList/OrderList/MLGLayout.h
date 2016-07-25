@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger,MUOrderState) {
 @property (nonatomic, assign) MUOrderState orderState;
 /** 索引 */
 @property (nonatomic, assign) NSUInteger index;
+/** 商品sku */
+@property (nonatomic, assign) NSUInteger skus;
 
 /** 订单类别 */
 @property (nonatomic, assign) NSUInteger orderCategory;

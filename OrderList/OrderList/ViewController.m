@@ -62,23 +62,24 @@
         [self.layouts addObject:layout];
     }
      */
-    
+    __block NSUInteger totalIdx = 0;
     [self.orderListModel.orderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         MLGOrderModel *orderModel = (MLGOrderModel *)obj;
         if (orderModel.childOrderList.count != 0) {
-            [orderModel.childOrderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
+            [orderModel.childOrderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger childIdx, BOOL * _Nonnull stop) {
+                MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:totalIdx];
                 [layout layout];
                 [self.layouts addObject:layout];
+                totalIdx++;
             }];
         } else {
-            MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
+            MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:totalIdx];
             [layout layout];
             [self.layouts addObject:layout];
+            totalIdx++;
         }
      
     }];
-    
     
     self.tableView.backgroundColor = RGBColor(246, 246, 246, 1);
     
@@ -87,11 +88,10 @@
 
 #pragma mark - <UITableViewDelegate,UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.orderListModel.orderList.count;
+    return self.layouts.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    MLGOrderModel *orderModel = self.orderListModel.orderList[section];
-    return orderModel.goodsList.count;
+    return ((MLGLayout *)self.layouts[section]).skus;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,8 +100,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MLGOrderListCell *cell = [MLGOrderListCell cellWithTableView:tableView];
-    MLGOrderModel *orderModel = self.orderListModel.orderList[indexPath.section];
-    [cell setOrderListModel:self.orderListModel];
+    MLGOrderModel *orderModel = ((MLGLayout *)self.layouts[indexPath.section]).orderModel;
     MLGGoods *goods = orderModel.goodsList[indexPath.row];
     [cell setGoods:goods];
     return cell;

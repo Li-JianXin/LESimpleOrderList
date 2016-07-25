@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *remindLabel;
 @property (nonatomic, strong) UIView *remindLine;
 @property (nonatomic, strong) UIView *statusView;
+@property (nonatomic, strong) UILabel *orderNameLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UIView *statusLine;
@@ -74,7 +75,8 @@
     [self addSubview:self.remindLabel];
     [self.remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.topSpace.mas_bottom);
-        make.left.right.mas_offset(0);
+        make.left.right.mas_offset(5);
+        make.right.mas_offset(0);
         make.height.mas_equalTo(HEIGHT_REMIND);
     }];
     
@@ -82,7 +84,8 @@
     self.remindLine.backgroundColor = RGBColor(221, 221, 221, 1);
     [self.remindLabel addSubview:self.remindLine];
     [self.remindLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_offset(0);
+        make.left.mas_offset(-5);
+        make.right.mas_offset(0);
         make.bottom.mas_equalTo(self.remindLabel.mas_bottom).offset(-1);
         make.height.mas_equalTo(1 / [UIScreen mainScreen].scale);
     }];
@@ -95,11 +98,23 @@
         make.height.mas_equalTo(HEIGHT_STATUS);
     }];
     
+    self.orderNameLabel = [UILabel new];
+    self.orderNameLabel.font = [UIFont systemFontOfSize:12.0f];
+    self.orderNameLabel.textColor = [UIColor whiteColor];
+    self.orderNameLabel.backgroundColor = [UIColor redColor];
+    self.orderNameLabel.layer.cornerRadius = 2.0f;
+    self.orderNameLabel.layer.masksToBounds = YES;
+    [self.statusView addSubview:self.orderNameLabel];
+    [self.orderNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.statusView).offset(10);
+        make.centerY.mas_equalTo(self.statusView.mas_centerY);
+    }];
+    
     self.dateLabel = [UILabel new];
     self.dateLabel.font = [UIFont systemFontOfSize:12.0f];
     [self.statusView addSubview:self.dateLabel];
     [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.statusView).offset(10);
+        make.left.mas_equalTo(self.orderNameLabel.mas_right).offset(2);
         make.centerY.mas_equalTo(self.statusView.mas_centerY);
     }];
     
@@ -171,6 +186,7 @@
     
     self.remindLabel.text = self.orderModel.orderTips;
     self.dateLabel.text = self.orderModel.createTime;
+    self.orderNameLabel.text = self.orderModel.orderName;
     self.statusLabel.text = self.orderModel.stateName;
     self.logisticsAboutLabel.text = self.orderModel.logisticsMsg;
     self.logisticsDateLabel.text  = self.orderModel.logisticsTime;

@@ -10,7 +10,6 @@
 #import "MLGOrderListModel.h"
 
 @interface MLGOrderListCell : UITableViewCell
-@property (nonatomic, strong) MLGOrderListModel *orderListModel;
 @property (nonatomic, strong) MLGGoods *goods;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

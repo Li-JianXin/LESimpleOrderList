@@ -38,6 +38,7 @@
 
 - (void)layout {
     self.orderState = self.orderModel.state;
+    self.skus = self.orderModel.goodsList.count;
     
     if (self.index == 0) {
         self.height_space = 0.0f;
