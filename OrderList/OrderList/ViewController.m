@@ -64,9 +64,19 @@
      */
     
     [self.orderListModel.orderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
-        [layout layout];
-        [self.layouts addObject:layout];
+        MLGOrderModel *orderModel = (MLGOrderModel *)obj;
+        if (orderModel.childOrderList.count != 0) {
+            [orderModel.childOrderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
+                [layout layout];
+                [self.layouts addObject:layout];
+            }];
+        } else {
+            MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
+            [layout layout];
+            [self.layouts addObject:layout];
+        }
+     
     }];
     
     

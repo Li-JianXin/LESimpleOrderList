@@ -70,7 +70,7 @@
     }];
     
     self.remindLabel = [UILabel new];
-    self.remindLabel.backgroundColor = [UIColor redColor];
+    self.remindLabel.font = [UIFont systemFontOfSize:11.0f];
     [self addSubview:self.remindLabel];
     [self.remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.topSpace.mas_bottom);
