@@ -27,6 +27,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setupUI];
     }
     return self;
@@ -105,12 +106,20 @@
     _layout = layout;
     _orderModel = layout.orderModel;
     
-    self.summaryLabel.text = [NSString stringWithFormat:@"共%ld件, 实付:%@",_orderModel.goodsList.count, _orderModel.total];
     if (layout.orderCategory == 3) {
         self.bottomView.hidden = NO;
     } else {
         self.bottomView.hidden = YES;
     }
+    
+    NSString *summaryString = [NSString stringWithFormat:@"共%ld件, 实付: ¥%@",_orderModel.goodsList.count, _orderModel.total];
+    NSDictionary *summary_attrs = @{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]};
+    NSMutableAttributedString *summary_as = [[NSMutableAttributedString alloc] initWithString:summaryString attributes:summary_attrs];
+    [summary_as addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[summaryString rangeOfString:[@"¥" stringByAppendingString:_orderModel.total]]];
+    [summary_as addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:[summaryString rangeOfString:[@"¥" stringByAppendingString:_orderModel.total]]];
+    self.summaryLabel.attributedText = summary_as;
+    
+  
 }
 
 @end

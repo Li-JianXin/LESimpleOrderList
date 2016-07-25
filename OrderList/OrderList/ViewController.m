@@ -48,19 +48,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"我的订单";
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"OrderList" ofType:@"json"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     self.orderListModel = [MLGOrderListModel modelWithJSON:[dataDict objectForKey:@"msg"]];
     
+    /*
     for (MLGOrderModel *orderModel in self.orderListModel.orderList) {
-        MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:orderModel orderCategory:2];
+        MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:orderModel orderCategory:2 index:1];
         [layout layout];
         [self.layouts addObject:layout];
     }
+     */
+    
+    [self.orderListModel.orderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:idx];
+        [layout layout];
+        [self.layouts addObject:layout];
+    }];
     
     
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = RGBColor(246, 246, 246, 1);
     
 }
 

@@ -11,6 +11,7 @@
 @interface MLGLayout ()
 
 /** Header子控件高度 */
+@property (nonatomic, assign) CGFloat height_space;
 @property (nonatomic, assign) CGFloat height_remind;
 @property (nonatomic, assign) CGFloat height_status;
 @property (nonatomic, assign) CGFloat height_logistics;
@@ -21,12 +22,15 @@
 
 @implementation MLGLayout
 
-- (instancetype)initWithOrderModel:(MLGOrderModel *)orderModel orderCategory:(NSUInteger)orderCategory{
+- (instancetype)initWithOrderModel:(MLGOrderModel *)orderModel
+                     orderCategory:(NSUInteger)orderCategory
+                             index:(NSUInteger)index{
     if (!orderModel) return nil;
     self = [super init];
     if (self) {
         _orderModel = orderModel;
         _orderCategory = orderCategory;
+        _index = index;
         [self layout];
     }
     return self;
@@ -34,6 +38,14 @@
 
 - (void)layout {
     self.orderState = self.orderModel.state;
+    
+    if (self.index == 0) {
+        self.height_space = 0.0f;
+        self.hiddenSpace = YES;
+    } else {
+        self.height_space = HEIGHT_Space;
+        self.hiddenSpace = NO;
+    }
     
     if (self.orderModel.orderTips && self.orderModel.orderTips.length != 0) {
         self.height_remind = HEIGHT_REMIND;
@@ -44,7 +56,7 @@
     }
     
     self.height_status = HEIGHT_STATUS;
-    
+    /**
     if (self.orderModel.logisticsMsg && self.orderModel.logisticsMsg.length != 0 && (self.orderModel.state == 23 || self.orderModel.state == 26 || self.orderModel.state ==  30 || self.orderModel.state == 20 || self.orderModel.state == 21 || self.orderModel.state == 22)) {
         self.height_logistics = HEIGHT_LOGISTICS;
         self.hiddenLogistics = NO;
@@ -53,8 +65,18 @@
         self.height_logistics = 0.0f;
         self.hiddenLogistics = YES;
     }
+     */
     
-    self.headerHeight = self.height_remind + self.height_status + self.height_logistics;
+    if (self.orderModel.logisticsMsg && self.orderModel.logisticsMsg.length != 0) {
+        self.height_logistics = HEIGHT_LOGISTICS;
+        self.hiddenLogistics = NO;
+    }
+    else {
+        self.height_logistics = 0.0f;
+        self.hiddenLogistics = YES;
+    }
+    
+    self.headerHeight = self.height_space + self.height_remind + self.height_status + self.height_logistics;
     
     if (self.orderCategory == 3) {
         self.height_summary = HEIGHT_SUMMARY;
@@ -67,7 +89,8 @@
     }
     self.footerHeight = self.height_summary + self.height_bottom;
     
-   
+    self.hiddenStatusLine = self.hiddenLogistics;
+    self.hiddenLogisticsLine = YES;
     
 }
 

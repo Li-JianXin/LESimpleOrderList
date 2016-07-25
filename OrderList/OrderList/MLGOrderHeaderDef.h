@@ -21,6 +21,7 @@
 
 #import "MLGLayout.h"
 
+#define HEIGHT_Space 10.0f
 #define HEIGHT_REMIND 30.0f
 #define HEIGHT_STATUS 30.0f
 #define HEIGHT_LOGISTICS 40.0f
@@ -29,5 +30,8 @@
 
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define RGBColor(r, g, b, a) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:a]
+
 
 #endif /* MLGOrderHeaderDef_h */

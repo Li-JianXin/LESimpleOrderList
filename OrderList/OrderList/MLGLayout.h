@@ -27,25 +27,37 @@ typedef NS_ENUM(NSInteger,MUOrderState) {
 
 @interface MLGLayout : NSObject
 
-- (instancetype)initWithOrderModel:(MLGOrderModel *)orderModel orderCategory:(NSUInteger)orderCategory;
+- (instancetype)initWithOrderModel:(MLGOrderModel *)orderModel orderCategory:(NSUInteger)orderCategory index:(NSUInteger)index;
 - (void)layout;
 
 /** 数据 */
 @property (nonatomic, strong) MLGOrderModel *orderModel;
 /** 订单状态 */
 @property (nonatomic, assign) MUOrderState orderState;
+/** 索引 */
+@property (nonatomic, assign) NSUInteger index;
+
 /** 订单类别 */
 @property (nonatomic, assign) NSUInteger orderCategory;
 /** Header总高度 */
 @property (nonatomic, assign) CGFloat headerHeight;
 /** Footer总高度 */
 @property (nonatomic, assign) CGFloat footerHeight;
+
+/** 是否隐藏space */
+@property (nonatomic, assign, getter=isHiddenSpace) BOOL hiddenSpace;
 /** 是否隐藏remindView */
 @property (nonatomic, assign, getter=isHiddenRemind) BOOL hiddenRemind;
 /** 是否隐藏logisticsView */
 @property (nonatomic, assign, getter=isHiddenLogistics) BOOL hiddenLogistics;
 /** 是否隐藏BottomView */
 @property (nonatomic, assign, getter=isHiddenBottom) BOOL hiddenBottom;
+
+/** 是否隐藏分隔线 */
+@property (nonatomic, assign, getter=isHiddenRemindLine) BOOL hiddenRemindLine;
+@property (nonatomic, assign, getter=isHiddenStatusLine) BOOL hiddenStatusLine;
+@property (nonatomic, assign, getter=isHiddenLogisticsLine) BOOL hiddenLogisticsLine;
+@property (nonatomic, assign, getter=isHiddenBottomLine) BOOL hiddenBottomLine;
 
 
 @end

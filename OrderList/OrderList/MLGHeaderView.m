@@ -11,6 +11,9 @@
 
 @interface MLGHeaderView ()
 
+@property (nonatomic, strong) UIView *topSpace;
+@property (nonatomic, strong) UIView *topSpaceLine;
+@property (nonatomic, strong) UIView *bottomSpaceLine;
 @property (nonatomic, strong) UILabel *remindLabel;
 @property (nonatomic, strong) UIView *remindLine;
 @property (nonatomic, strong) UIView *statusView;
@@ -32,22 +35,51 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setupUI];
     }
     return self;
 }
 
 - (void)setupUI {
+    
+    self.topSpace = [UIView new];
+    self.topSpace.backgroundColor = RGBColor(246, 246, 246, 1);
+    [self addSubview:self.topSpace];
+    [self.topSpace mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_offset(0);
+        make.height.mas_equalTo(HEIGHT_Space);
+    }];
+    
+    self.topSpaceLine = [UIView new];
+    self.topSpaceLine.backgroundColor = RGBColor(221, 221, 221, 1);
+    [self.topSpace addSubview:self.topSpaceLine];
+    [self.topSpaceLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.top.mas_equalTo(self.topSpace.mas_top).offset((1 / [UIScreen mainScreen].scale));
+        make.height.mas_equalTo(1 / [UIScreen mainScreen].scale);
+    }];
+    
+    self.bottomSpaceLine = [UIView new];
+    self.bottomSpaceLine.backgroundColor = RGBColor(221, 221, 221, 1);
+    [self.topSpace addSubview:self.bottomSpaceLine];
+    [self.bottomSpaceLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.bottom.mas_equalTo(self.topSpace.mas_bottom).offset(-(1 / [UIScreen mainScreen].scale));
+        make.height.mas_equalTo(1 / [UIScreen mainScreen].scale);
+    }];
+    
     self.remindLabel = [UILabel new];
     self.remindLabel.backgroundColor = [UIColor redColor];
     [self addSubview:self.remindLabel];
     [self.remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.mas_offset(0);
+        make.top.mas_equalTo(self.topSpace.mas_bottom);
+        make.left.right.mas_offset(0);
         make.height.mas_equalTo(HEIGHT_REMIND);
     }];
     
     self.remindLine = [UIView new];
-    self.remindLine.backgroundColor = [UIColor lightGrayColor];
+    self.remindLine.backgroundColor = RGBColor(221, 221, 221, 1);
     [self.remindLabel addSubview:self.remindLine];
     [self.remindLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_offset(0);
@@ -81,7 +113,7 @@
     }];
     
     self.statusLine = [UIView new];
-    self.statusLine.backgroundColor = [UIColor lightGrayColor];
+    self.statusLine.backgroundColor = RGBColor(221, 221, 221, 1);
     [self.statusView addSubview:self.statusLine];
     [self.statusLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_offset(0);
@@ -123,7 +155,7 @@
     }];
     
     self.logisticsLine = [UIView new];
-    self.logisticsLine.backgroundColor = [UIColor lightGrayColor];
+    self.logisticsLine.backgroundColor = RGBColor(221, 221, 221, 1);
     [self.logisticsView addSubview:self.logisticsLine];
     [self.logisticsLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_offset(0);
@@ -143,8 +175,22 @@
     self.logisticsAboutLabel.text = self.orderModel.logisticsMsg;
     self.logisticsDateLabel.text  = self.orderModel.logisticsTime;
     
+    self.topSpace.hidden = layout.isHiddenSpace;
     self.remindLabel.hidden = layout.isHiddenRemind;
     self.logisticsView.hidden = layout.hiddenLogistics;
+    
+    self.statusLine.hidden = layout.isHiddenStatusLine;
+    self.logisticsLine.hidden = layout.isHiddenLogisticsLine;
+    
+    if (self.topSpace.hidden) {
+        [self.topSpace mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    } else {
+        [self.topSpace mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(HEIGHT_Space);
+        }];
+    }
     
     if (self.remindLabel.hidden) {
         [self.remindLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -155,6 +201,7 @@
             make.height.mas_equalTo(HEIGHT_REMIND);
         }];
     }
+        
 }
 
 @end

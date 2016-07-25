@@ -33,7 +33,6 @@
    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupUI];
-        self.contentView.backgroundColor = [UIColor orangeColor];
     }
     return self;
 }
@@ -87,7 +86,7 @@
     
     [self.goodImageView setImageWithURL:[NSURL URLWithString:goods.goodsImg] options:YYWebImageOptionProgressive];
     self.goodNameLabel.text  = goods.goodsName;
-    self.goodPriceLabel.text = goods.price;
+    self.goodPriceLabel.text = [@"¥" stringByAppendingString:goods.price];
     self.goodNumberLabel.text = [NSString stringWithFormat:@"X %zd",goods.goodsCount];
 }
 
