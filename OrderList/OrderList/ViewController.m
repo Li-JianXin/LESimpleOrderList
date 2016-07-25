@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "MLGOrderHeaderDef.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,MLGHeaderDelegate>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,MLGHeaderDelegate,MLGFooterDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *datas;
@@ -66,13 +66,13 @@
         MLGOrderModel *orderModel = (MLGOrderModel *)obj;
         if (orderModel.childOrderList.count != 0) {
             [orderModel.childOrderList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger childIdx, BOOL * _Nonnull stop) {
-                MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:totalIdx];
+                MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:childIdx index:totalIdx];
                 [layout layout];
                 [self.layouts addObject:layout];
                 totalIdx++;
             }];
         } else {
-            MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:2 index:totalIdx];
+            MLGLayout *layout = [[MLGLayout alloc] initWithOrderModel:(MLGOrderModel *)obj orderCategory:idx index:totalIdx];
             [layout layout];
             [self.layouts addObject:layout];
             totalIdx++;
@@ -120,6 +120,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     MLGFooterView *footer = [[MLGFooterView alloc] init];
+    footer.delegate = self;
     [footer setLayout:((MLGLayout *)self.layouts[section])];
     return footer;
 }
@@ -137,6 +138,27 @@
 - (void)headerDidClickLogistics:(MLGLayout *)layout {
     H5ViewController *h5Vc = [[H5ViewController alloc] initWithHtmlUrl:layout.orderModel.logisticsUrl];
     [self.navigationController pushViewController:h5Vc animated:YES];
+}
+
+#pragma mark - <MLGFooterDelegate>
+- (void)footerDidClick:(MLGLayout *)layout {
+    NSLog(@"点击Footer");
+}
+
+- (void)footerDidClickBuyAgain:(MLGLayout *)layout {
+    NSLog(@"再下一单 %@",layout.orderModel.orderId);
+}
+
+- (void)footerDidClickCommentOrder:(MLGLayout *)layout {
+    NSLog(@"点评晒单 %@",layout.orderModel.orderId);
+}
+
+- (void)footerDidClickDeleteOrder:(MLGLayout *)layout {
+    NSLog(@"删除订单 %@",layout.orderModel.orderId);
+}
+
+- (void)footerDidClickSendRedEnvelope:(MLGLayout *)layout {
+    NSLog(@"发红包 %@",layout.orderModel.orderId);
 }
 
 @end

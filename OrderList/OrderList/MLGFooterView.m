@@ -52,6 +52,7 @@
     }];
     
     self.buyAgainBtn = [UIButton new];
+    self.buyAgainBtn.tag = 1;
     [self.buyAgainBtn setTitle:@"再下一单" forState:UIControlStateNormal];
     [self setButtonStyle:self.buyAgainBtn];
     [self.bottomView addSubview:self.buyAgainBtn];
@@ -63,6 +64,7 @@
     }];
     
     self.commentBtn = [UIButton new];
+    self.commentBtn.tag = 2;
     [self.commentBtn setTitle:@"点评晒单" forState:UIControlStateNormal];
     [self setButtonStyle:self.commentBtn];
     [self.bottomView addSubview:self.commentBtn];
@@ -73,6 +75,7 @@
     }];
     
     self.deleteBtn = [UIButton new];
+    self.deleteBtn.tag = 3;
     [self.deleteBtn setTitle:@"删除订单" forState:UIControlStateNormal];
     [self setButtonStyle:self.deleteBtn];
     [self.bottomView addSubview:self.deleteBtn];
@@ -83,6 +86,7 @@
     }];
     
     self.shareBtn = [UIButton new];
+    self.shareBtn.tag = 4;
     [self.shareBtn setTitle:@"发红包" forState:UIControlStateNormal];
     [self setButtonStyle:self.shareBtn];
     [self.bottomView addSubview:self.shareBtn];
@@ -100,6 +104,8 @@
     button.layer.borderWidth = 1.0f;
     button.layer.masksToBounds = YES;
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
+    [button addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setLayout:(MLGLayout *)layout {
@@ -120,6 +126,42 @@
     self.summaryLabel.attributedText = summary_as;
     
   
+}
+
+- (void)btnClick:(UIButton *)sender {
+    switch (sender.tag) {
+        case 1:
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(footerDidClickBuyAgain:)]) {
+                [self.delegate footerDidClickBuyAgain:self.layout];
+            }
+        }
+            break;
+        case 2:
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(footerDidClickCommentOrder:)]) {
+                [self.delegate footerDidClickCommentOrder:self.layout];
+            }
+        }
+            break;
+        case 3:
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(footerDidClickDeleteOrder:)]) {
+                [self.delegate footerDidClickDeleteOrder:self.layout];
+            }
+        }
+            break;
+        case 4:
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(footerDidClickSendRedEnvelope:)]) {
+                [self.delegate footerDidClickSendRedEnvelope:self.layout];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
